@@ -2,6 +2,32 @@
 
 <%= render @image %>
 
+<hr>
+
+<h2>Comments (<%= @image.comments.count %>)</h2>
+
+<% @image.comments.each do |comment| %>
+  <div id="<%= dom_id comment %>">
+    <p><%= comment.body %></p>
+  </div>
+<% end %>
+
+<h3>Add a comment</h3>
+
+<%= form_with model: @comment, url: comments_path do |form| %>
+  <%= form.hidden_field :commentable_type, value: "Image" %>
+  <%= form.hidden_field :commentable_id, value: @image.id %>
+
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.textarea :body %>
+  </div>
+
+  <div>
+    <%= form.submit "Post comment" %>
+  </div>
+<% end %>
+
 <div>
   <%= link_to "Edit this image", edit_image_path(@image) %> |
   <%= link_to "Back to images", images_path %>
