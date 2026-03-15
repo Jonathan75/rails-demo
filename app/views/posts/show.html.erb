@@ -2,6 +2,32 @@
 
 <%= render @post %>
 
+<hr>
+
+<h2>Comments (<%= @post.comments.count %>)</h2>
+
+<% @post.comments.each do |comment| %>
+  <div id="<%= dom_id comment %>">
+    <p><%= comment.body %></p>
+  </div>
+<% end %>
+
+<h3>Add a comment</h3>
+
+<%= form_with model: @comment, url: comments_path do |form| %>
+  <%= form.hidden_field :commentable_type, value: "Post" %>
+  <%= form.hidden_field :commentable_id, value: @post.id %>
+
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.textarea :body %>
+  </div>
+
+  <div>
+    <%= form.submit "Post comment" %>
+  </div>
+<% end %>
+
 <div>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
   <%= link_to "Back to posts", posts_path %>
