@@ -3,4 +3,8 @@
     <%= image.url %>
   </div>
   <%= image_tag(image.url, style: "max-width: 25%")%>
+  <div>
+    <strong>Tags:</strong>
+    <%= image.tags.map(&:name).join(", ") %>
+  </div>
 </div>

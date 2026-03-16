@@ -9,4 +9,9 @@
     <%= post.body %>
   </div>
 
+  <div>
+    <strong>Tags:</strong>
+    <%= post.tags.map(&:name).join(", ") %>
+  </div>
+
 </div>
